@@ -21,11 +21,12 @@ In addition, CUDA 9.0 and cuDNN 7 have been used.
 
 3. execute_inductive.py is for PPI, a large scale dataset.
 
-### running demo.
-
+#### Running demo.
+```
 CUDA_VISIBLE_DEVICES=0, python execute.py; python execute_sparse.py; python execute_inductive.py
+```
 
-### How about the Reddit dataset?
+#### How about the Reddit dataset?
 
 According to reddit, it is quite hard to implement the experiment of the Reddit dataset based on GAT. Two following reasons,
 
