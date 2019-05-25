@@ -161,6 +161,15 @@ def preprocess_features(features):
     features = r_mat_inv.dot(features)
     return features.todense(), sparse_to_tuple(features)
 
+def preprocess_features2(features):
+    """Row-normalize feature matrix and convert to tuple representation"""
+    rowsum = np.array(features.sum(1))
+    r_inv = np.power(rowsum, -1).flatten()
+    r_inv[np.isinf(r_inv)] = 0.
+    r_mat_inv = np.diag(r_inv)
+    features = r_mat_inv.dot(features)
+    return features
+
 def normalize_adj(adj):
     """Symmetrically normalize adjacency matrix."""
     adj = sp.coo_matrix(adj)
@@ -177,6 +186,18 @@ def preprocess_adj(adj):
     return sparse_to_tuple(adj_normalized)
 
 def preprocess_adj_bias(adj):
+    num_nodes = adj.shape[0]
+    adj = adj + sp.eye(num_nodes)  # self-loop
+    adj[adj > 0.0] = 1.0
+    if not sp.isspmatrix_coo(adj):
+        adj = adj.tocoo()
+    adj = adj.astype(np.float32)
+    indices = np.vstack((adj.col, adj.row)).transpose()  # This is where I made a mistake, I used (adj.row, adj.col) instead
+    # return tf.SparseTensor(indices=indices, values=adj.data, dense_shape=adj.shape)
+    return indices, adj.data, adj.shape
+
+def preprocess_adj_bias2(adj):
+    adj = sp.csr_matrix(adj)
     num_nodes = adj.shape[0]
     adj = adj + sp.eye(num_nodes)  # self-loop
     adj[adj > 0.0] = 1.0
