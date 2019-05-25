@@ -28,7 +28,7 @@ CUDA_VISIBLE_DEVICES=0, python execute.py; python execute_sparse.py; python exec
 
 #### How about the Reddit dataset?
 
-According to reddit, it is quite hard to implement the experiment of the Reddit dataset based on GAT. Two following reasons,
+Generally, it is quite hard to implement the experiment of the Reddit dataset based on GAT. Two following reasons,
 
 1. You have to decompose a large Reddit graph into too many small graphs like DFS decomposition in GAT. And when you algin the size of the sub-graphs, you will find that it consumes too much memory. One trade-off is limit the size of each sub-graph without guaranttee of the isolated condition such as 10000 sub-graphs with the adj of size 1000x1000.
 
