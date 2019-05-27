@@ -30,7 +30,7 @@ CUDA_VISIBLE_DEVICES=0, python execute.py; python execute_sparse.py; python exec
 
 Generally, it is quite hard to implement the experiment of the Reddit dataset based on GAT. Two following reasons,
 
-1. You have to decompose a large Reddit graph into too many small graphs like DFS decomposition in GAT. And when you algin the size of the sub-graphs, you will find that it consumes too much memory. One trade-off is limit the size of each sub-graph without guaranttee of the isolated condition such as 10000 sub-graphs with the adj of size 1000x1000.
+1. You have to decompose a large Reddit graph into too many small graphs like DFS decomposition in GAT. And when you align the size of the sub-graphs, you will find that it consumes too much memory. One trade-off is limit the size of each sub-graph without guaranttee of the isolated condition such as 10000 sub-graphs with the adj of size 1000x1000.
 
 2. The train/val/test split is different from PPI since PPI does this in the graph level when reddit does this in the node level according to the timeline. You cannot reuse the preprocess script for PPI and also you have to change the code in the execute_inductive.py.
 
